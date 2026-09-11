@@ -315,3 +315,7 @@ mvn clean compile exec:java -Dexec.mainClass="com.backend.resilience.ResilienceD
 - Click the green Run icon next to the main method.
 <img width="1014" height="359" alt="image" src="https://github.com/user-attachments/assets/0de1fa0c-843d-42a5-b1e8-7571cac18791" />
 
+---
+
+> **Note on External API Calls:**  
+> This demo makes real HTTP requests to `jsonplaceholder.typicode.com` to showcase live network I/O, actual latency, and genuine socket lifecycles. Please ensure you have an active internet connection when running the application.
