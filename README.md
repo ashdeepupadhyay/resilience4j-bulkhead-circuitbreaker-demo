@@ -87,14 +87,18 @@ ThreadPoolBulkhead coreBulkhead = ThreadPoolBulkhead.of("core-service-pool",
 To maintain single-responsibility principles, the implementation is organized into four modular components:
 
 ```text
-src/main/java/com/backend/resilience/
-├── ResilienceDemoApp.java          # Orchestrator running scenarios sequentially
-├── config/
-│   └── ResilienceConfig.java       # Component factories and pool definitions
-├── client/
-│   └── HttpServiceClient.java      # Pipeline decoration, execution, and fallbacks
-└── scenario/
-    └── ResilienceScenarios.java    # Isolated test cases
+src/
+├── main/
+│   ├── java/com/backend/resilience/
+│   │   ├── ResilienceDemoApp.java       # Orchestrator running scenarios sequentially
+│   │   ├── client/
+│   │   │   └── HttpServiceClient.java   # Pipeline decoration, execution, and fallbacks
+│   │   ├── config/
+│   │   │   └── ResilienceConfig.java    # Component factories, YAML bindings, pool definitions
+│   │   └── scenario/
+│   │       └── ResilienceScenarios.java # Isolated test cases
+│   └── resources/
+│       └── application.yml              # Centralized configuration properties
 ```
 
 ### Decorator Ordering Pipeline
@@ -319,3 +323,6 @@ mvn clean compile exec:java -Dexec.mainClass="com.backend.resilience.ResilienceD
 
 > **Note on External API Calls:**  
 > This demo makes real HTTP requests to `jsonplaceholder.typicode.com` to showcase live network I/O, actual latency, and genuine socket lifecycles. Please ensure you have an active internet connection when running the application.
+
+> **Tip — Experiment with the Simulation:**  
+> All pool sizes, queue capacities, retry timeouts, and circuit breaker thresholds are dynamically driven by `src/main/resources/application.yml`. Try adjusting values like `queueCapacity`, `failureRateThreshold`, or `randomizedWaitFactor` and re-run the application to observe how the runtime behavior and thread allocations adapt in real time.

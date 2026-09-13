@@ -1,0 +1,21 @@
+resilience4j:
+  circuitbreaker:
+    instances:
+      kitchenService:
+        slidingWindowSize: 4
+        failureRateThreshold: 50.0f
+        waitDurationInOpenState: 3
+        permittedNumberOfCallsInHalfOpenState: 2
+  thread-pool-bulkhead:
+    instances:
+      kitchenService:
+        coreThreadPoolSize: 2
+        maxThreadPoolSize: 2
+        queueCapacity: 1
+  retry:
+    instances:
+      kitchenService:
+        maxAttempts: 3
+        waitDuration: 200ms
+        exponentialBackoffMultiplier: 2.0
+        randomizedWaitFactor: 0.5
